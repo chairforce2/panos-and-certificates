@@ -54,6 +54,8 @@ and create cert.
 
 You should now have a CA cert and a leaf from that CA. The CA cert should be 'trusted for this account' because you manually made it that way. The leaf cert should just be 'valid' since you created it from a trusted CA. If this is not the case, you either messed up, or thigns have changed since I wrote this so go back and review all of the above for any errors/ things you missed. If you followed my instructions perfectly, then sorry you probably need to google some info on making certs for your OS.
 
+Also, if you have made it to this stage and things look good, you shouldn't have to repeat the above in the future. Just make a new leaf cert from your already existing CA cert in accordance with my guidance, and then start the process below
+
 
 ########bringing this to PAN-OS########
 
@@ -62,13 +64,16 @@ Ok, so now within keychain access, you are going to export both the example CA a
 Import first the root CA, and then the leaf. I would advise keeping the cert name in PAN-OS the same as on your device, just to make things clear for you. Make sure to have cert type is local, and file format is PKCS12. You should have had to use a passphrase to export the cert, so use it here to successfully import.
 
 Now go down to SSL/TLS Service Profile and create one with the _leaf_ cert for your mgmt interface. 
-
-Then go our to Setup > Management > Secure Communication Settings. Change cert type to local
+Go to Certificate Profiles and create one for your Root CA.
+Go to Setup > Management > General Settings, and also set the SSL/TLS Service Profile to the one you just created
 
 #####commit#####
 
 
+If everything has gone correctly, you should get a message that the web ui is going to restart. when it is done, boom you should be on HTTPS. Now, in order for other people to be on HTTPS, they also must have the root CA you create on their machine and trust it. If you want to deploy a solution like this for your whole org, you are going to need to actually get into the PKI game. This is beyond the scope of this guide.
 
+Thanks for reading and if you find any erros / have suggestions for improvement let me know.
+kpawlak@paloaltonetworks.com
 
 
 
