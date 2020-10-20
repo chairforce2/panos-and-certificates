@@ -76,5 +76,17 @@ Thanks for reading and if you find any erros / have suggestions for improvement 
 kpawlak@paloaltonetworks.com
 
 
+########GlobalProtect POC cert steps#######
+
+So go back to Keychain assistant, create a new leaf cert from your local CA, type VPN server, ovverride defaults
+
+In the Certificate Information page, common name should be the ip/dns of the untrust interface / interface on which you will host the GP portal and/or gateway (make more than one cert if these are different interfaces or on different devices)
+(make sure it is signed by a root CA you trust (probably the same you created earlier)
+
+Extended Key Usage Extension - you can do any, but I always make sure to specifically flag 'ssl server auth' for potal web ui + any initial ssl interactions
+Subject alternative name extension page - again we will put in the IP and/or DNS of the untrust interface
+Now upload it to the firewall (after you export it from keychain access app
+
+From there you will be using it in the normal place of certificates in the GP setup process, such as discussed here: https://docs.paloaltonetworks.com/globalprotect/8-1/globalprotect-admin/globalprotect-quick-configs/remote-access-vpn-authentication-profile.html#idedc68ee0-d39f-4d91-bcae-5409f57c4071
 
 
