@@ -95,3 +95,26 @@ So import it to the firewall, create the appropriate SSL/TLS service profile, us
 ####commit####
 
 
+
+
+##############################GlobalProtect Client Cert Validation - POC ################################
+
+As in all the above sections, this guidance is suitable for small POC deployments. If you are going to do this configuration for an enterprise you should get assistance from a PKI solution/ deployment so that you can create and manage certificates in a secure, compliant, scalable way.
+
+At this stage, what we need is a certificate to do VPN client work that will be accepted by the globalprotect portal/gateway
+
+once again open our trusty keychain assistant, create a cert of identity type leaf, cert type VPN Client, override defaults
+
+For PAN-OS purposes, the common name is used for identification. If you are trying to do per-user certificates or per-machine certs, then you do need to be concerned with this field as it will be used for User-ID and/or machine identification. For POC purposes, it is fine to give it a generic name (I chose gp_test1)
+
+Advance to 'Extended Key Usage Extension, include 'any' and 'ssl client auth'
+In this case we *should* not need a SAN as the firewall is inspecting this cert for auth, rather than the OS/browser. we do not have to concern ourselves with passign the checks of a specific client OS or browser
+
+after cert is created, right click > new identify preference, and add the URL for the GP portal/gateway as the location. This is so that the GP client knows to supply this certificate for VPN client authentication when going to this IP/URL
+
+This cert is signed by the root CA you started with, so on your device, you shoud have a Certificate Profile referencing this CA. Go to your GP Gateway config > Authentication, and change certificate profile to match that profile. Also change the client auth entry so that it needs both user credentials and the cert. The GP Gateway will now look for the presence of a cert for client VPN which is signed by the CA you started with.
+
+####commit#####
+
+
+
