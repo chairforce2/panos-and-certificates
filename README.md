@@ -25,6 +25,7 @@ User Certificate: S/MIME
 skip forward 2 steps, uncheck 'sign your invitation', and advance steps until you get to 'Key Usage Extensions for this CA'
 -include the key usage extension, and make sure it has certificate signing included
 
+
 Advance again until 'Extended Key Usage Extension for Users of This CA', and make sure everything is allowed (may not be best practice but I'm trying to get this working first and foremost)
 
 And then advance and advance until you are done.
@@ -88,5 +89,9 @@ Subject alternative name extension page - again we will put in the IP and/or DNS
 Now upload it to the firewall (after you export it from keychain access app
 
 From there you will be using it in the normal place of certificates in the GP setup process, such as discussed here: https://docs.paloaltonetworks.com/globalprotect/8-1/globalprotect-admin/globalprotect-quick-configs/remote-access-vpn-authentication-profile.html#idedc68ee0-d39f-4d91-bcae-5409f57c4071
+
+So import it to the firewall, create the appropriate SSL/TLS service profile, use it in GlobalProtect portal/gateway config
+
+####commit####
 
 
