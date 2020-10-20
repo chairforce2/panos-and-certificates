@@ -114,7 +114,13 @@ after cert is created, right click > new identify preference, and add the URL fo
 
 This cert is signed by the root CA you started with, so on your device, you shoud have a Certificate Profile referencing this CA. Go to your GP Gateway config > Authentication, and change certificate profile to match that profile. Also change the client auth entry so that it needs both user credentials and the cert. The GP Gateway will now look for the presence of a cert for client VPN which is signed by the CA you started with.
 
+****if you would like you can upload this client cert to the fw as well so other admins can download it. alternatively, create unique certs for each admin/testuser and then hand them out to those people *****
+
 ####commit#####
+
+If you want to extend this type of deployment to a full enterprise, I also recommend you use an MDM solution of some kind in order to distribute the certs, such as this process with jamf: https://docs.jamf.com/technical-papers/jamf-pro/integrating-ad-cs/10.6.0/Distribute_Certificates_Using_Configuration_Profiles.html
+
+Alternatively, you may embed the cert directly in the GP agent and distribute the agent packeage (with embedded cert) using your management tool of choice. this will accomplish the cert + user auth use case, but does not create unique certs per user or machine.
 
 
 
